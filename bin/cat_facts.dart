@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'random_cat_fact.dart';
 
 class CatFacts {
   Language factsLanguage = Language.english;
@@ -12,6 +13,14 @@ class CatFacts {
 
   CatFacts() {
     factsLanguage = _getLanguagePreference();
+    while (true) {
+      displayRandomCat();
+    }
+  }
+
+  Future<void> displayRandomCat() async {
+    var catFact = await RandomCatFact.fetchRandomCatFact();
+    catFact.display();
   }
 
   Language _getLanguagePreference() {

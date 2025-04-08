@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 
 class RandomCatFact {
   final String fact;
+  final displayWidth = 30;
 
   RandomCatFact({required this.fact});
 
@@ -21,9 +22,9 @@ class RandomCatFact {
   void display() {
     print(
     '''
-    ======================================
+    ${'=' * fact.length}
     $fact
-    ======================================
+    ${'=' * fact.length}
     '''
     );
   }
