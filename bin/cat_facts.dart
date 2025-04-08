@@ -4,7 +4,7 @@ import 'random_cat_fact.dart';
 
 class CatFacts {
   Language factsLanguage = Language.english;
-  final List<RandomCatFact> favouriteFacts = [];
+  final List<RandomCatFact> likedFacts = [];
 
   static const languagePreferenceCodes = {
     1: Language.english,
@@ -32,6 +32,7 @@ class CatFacts {
     "like" - add current fact to favourites and display next.
     "next" - display next.
     "list" - list favourite facts. 
+    "clear" - clear favourite facts. 
     "q" - quit. 
     '''
     );
@@ -51,21 +52,29 @@ class CatFacts {
         displayRandomCat();
       case 'list':
         listLikedFacts();
+
       case 'next':
         displayRandomCat();
+      case 'clear':
+       clearLikedFacts();
+       displayRandomCat();
       case 'quit':
         return;
     }
   }
 
   void likeFact(RandomCatFact fact) {
-    favouriteFacts.add(fact);
+    likedFacts.add(fact);
   }
 
   void listLikedFacts() {
-    for (final fact in favouriteFacts) {
+    for (final fact in likedFacts) {
       fact.display();
     }
+  }
+
+  void clearLikedFacts() {
+    likedFacts.clear();
   }
 
   Language _getLanguagePreference() {
