@@ -1,34 +1,40 @@
 import 'dart:convert';
 import 'dart:io';
 
-void main(List<String> arguments) {
-  var line = stdin.readLineSync(encoding: utf8);
-  print(line);
-}
-
 class CatFacts {
-  Language factLanguage = Language.eng;
+  Language factsLanguage = Language.english;
 
-  CatFacts();
+  static const languagePreferenceCodes = {
+    1: Language.english,
+    2: Language.spanish,
+    3: Language.french,
+  };
 
-  void start() {
-
+  CatFacts() {
+    factsLanguage = _getLanguagePreference();
   }
 
   Language _getLanguagePreference() {
     showLanguageSelectionMenu();
 
-    String? userInput = stdin.readLineSync(encoding: utf8);
+    String? userInput = stdin.readLineSync(encoding: utf8)?.trim();
 
-    if()
+    if (userInput == null || userInput.isEmpty) {
+      _getLanguagePreference();
+    }
 
+    int userLanguageCode = int.parse(userInput!);
+
+    if (!languagePreferenceCodes.containsKey(userLanguageCode)) {
+      _getLanguagePreference();
+    }
+
+    return languagePreferenceCodes[userLanguageCode] ?? Language.english;
   }
-
-  bool validateLanguagePreferenceInput
 
   void showLanguageSelectionMenu() {
     print(
-    '''
+        '''
     ======================================
     Please select language of random cat facts.
     Type 1 if you want ENGLISH.
@@ -41,7 +47,7 @@ class CatFacts {
 }
 
 enum Language {
-  eng,
-  rus,
-  esp, //esp - espana - spanish
+  english,
+  spanish,
+  french,
 }
